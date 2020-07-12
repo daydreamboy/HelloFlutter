@@ -4,7 +4,20 @@
 
 ## 1、环境搭建
 
-### （1）源码安装
+### （1）平台支持
+
+| 平台    | 系统版本                                      |
+| ------- | --------------------------------------------- |
+| iOS     | 8.0+ (Flutter supports iOS 8.0 and later[^2]) |
+| Android |                                               |
+
+
+
+
+
+
+
+### （2）源码安装
 
 ```shell
 $ git clone https://github.com/flutter/flutter.git -b stable --depth 1
@@ -133,9 +146,105 @@ class MyApp extends StatelessWidget {
 
 
 
+## 3、Flutter添加到现有工程中
+
+
+
+（1）Embed with CocoaPods and the Flutter SDK
+
+文件结构
+
+```shell
+$ tree . -L 2
+.
+├── HelloFlutter
+│   ├── HelloFlutter
+│   ├── HelloFlutter.xcodeproj
+│   ├── HelloFlutter.xcworkspace
+│   ├── Podfile
+│   ├── Podfile.lock
+│   └── Pods
+└── my_flutter
+    ├── README.md
+    ├── lib
+    ├── my_flutter.iml
+    ├── my_flutter_android.iml
+    ├── pubspec.lock
+    ├── pubspec.yaml
+    └── test
+
+8 directories, 7 files
+```
+
+
+
+Podfile
+
+```ruby
+flutter_application_path = '../my_flutter'
+load File.join(flutter_application_path, '.ios', 'Flutter', 'podhelper.rb')
+
+platform :ios, '9.0'
+
+target 'HelloFlutter' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  install_all_flutter_pods(flutter_application_path)
+end
+```
+
+
+
+
+
+显示Flutter view controller
+
+Show a FlutterViewController with your FlutterEngine
+
+https://flutter.dev/docs/development/add-to-app/ios/add-flutter-screen#show-a-flutterviewcontroller-with-your-flutterengine
+
+
+
+调试
+
+```shell
+$ flutter attach -d <device id>
+```
+
+
+
+
+
+
+
+
+
+
+
+## 附录
+
+### 1、flutter命令
+
+#### （1）run
+
+| 选项          |                                |
+| ------------- | ------------------------------ |
+| -d <deviceId> | 指定运行在某个已经启动的设备上 |
+| -d all        | 运行在所有已经启动的设备上     |
+
+
+
+
+
+
+
+
+
 ## Reference
 
 [^1]:https://dart.dev/tools/pub/pubspec#name
+
+[^2]:https://flutter.dev/docs/development/add-to-app/ios/project-setup#system-requirements
 
 
 
